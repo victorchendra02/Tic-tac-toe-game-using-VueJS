@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
 /* --------------- Flex --------------- */
 .flex {
     display: flex;
@@ -36,6 +38,39 @@
     justify-content: space-evenly;
 }
 
+/* --------------- Text --------------- */
+.text-vertically-center {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+/*  */
+.text-color-white {
+    color: #e1e1e1;
+}
+
+.biru {
+    background-color: #008ddb;
+}
+.merah {
+    background-color: #e4005a;
+}
+.kuning {
+    background-color: #ffb807;
+}
+.box-shdw {
+    box-shadow: 0px 0px 45px -32px rgb(85, 85, 85);
+}
 body {
-    background-color: #1a1a1a;
+    background-color: #151515;
+}
+
+* {
+    font-family: "Inter", sans-serif;
 }

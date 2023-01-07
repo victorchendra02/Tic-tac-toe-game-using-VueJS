@@ -2,13 +2,13 @@
 <!-- align-middle -->
 <!-- justify-content-center -->
 <template>
-    <div class="flex flex-wrap my-border" style="width: 552px; height: 552px; gap: 2px">
+    <div class="flex flex-wrap box-shdw" style="width: 540px; height: 540px">
         <div v-for="(n, index) in table" :key="index">
             <div class="square" v-if="table[index] === null && is_end === false" @click="clicked(index)"></div>
             <div class="square-disabled" v-if="table[index] === null && is_end === true"></div>
 
-            <div class="square-X" v-if="table[index] === 'X'"></div>
-            <div class="square-O" v-if="table[index] === 'O'"></div>
+            <div class="square-X biru" v-if="table[index] === 'X'"></div>
+            <div class="square-O merah" v-if="table[index] === 'O'"></div>
         </div>
     </div>
 </template>
@@ -25,6 +25,8 @@ export default {
             Owin: undefined,
             draw: undefined,
             total_game: undefined,
+            winner: "",
+            turn: "X",
         };
     },
 
@@ -66,9 +68,34 @@ export default {
             this.emitter.emit("score", this.$data);
         },
         restart_game() {
-            this.table = [null, null, null, null, null, null, null, null, null]
-            this.move_count = 0
-            this.is_end = false
+            this.table = [null, null, null, null, null, null, null, null, null];
+            this.move_count = 0;
+            this.is_end = false;
+        },
+        reset_score() {
+            if (this.Xwin === 0 && this.Owin === 0 && this.draw === 0) {
+                this.restart_game();
+                setTimeout(function () {
+                    alert("Nothing to reset. Score already resetted!");
+                }, 150);
+
+                return;
+            }
+
+            window.localStorage.setItem("Xwin", 0);
+            window.localStorage.setItem("Owin", 0);
+            window.localStorage.setItem("draw", 0);
+
+            this.Xwin = 0;
+            this.Owin = 0;
+            this.draw = 0;
+
+            this.emitter.emit("score", this.$data);
+            this.restart_game();
+
+            setTimeout(function () {
+                alert("Score has been reset!");
+            }, 150);
         },
         checking() {
             // Rows check
@@ -176,6 +203,9 @@ export default {
         this.emitter.on("restart_game", (status) => {
             this.restart_game();
         });
+        this.emitter.on("reset_score", (status) => {
+            this.reset_score();
+        });
     },
 };
 </script>
@@ -185,8 +215,8 @@ export default {
 .square-O,
 .square,
 .square-disabled {
-    width: 179px;
-    height: 179px;
+    width: 180px;
+    height: 180px;
 }
 /*  */
 /*  */
@@ -195,21 +225,14 @@ export default {
 
 .square {
     cursor: pointer;
-    background-color: #fff;
+    background-color: #212121;
 }
 .square:hover {
-    background-color: #61c688;
-    box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.4);
+    background-color: #e1e1e1;
 }
 
-.square-X {
-    background-color: #266baf;
-}
-.square-O {
-    background-color: #e91e63;
-}
 .square-disabled {
-    background-color: rgb(40, 40, 40);
+    background-color: #212121;
 }
 
 /*  */

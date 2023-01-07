@@ -1,22 +1,42 @@
 <template>
-    <div class="bg-info text-center" style="width: 400px">
-        <h2>Score Status</h2>
-        <hr />
+    <div class="text-center buat-radius" style="width: 400px; background-color: #212121">
+        <h2 class="fw-bold text-color-white py-3">Score Status</h2>
 
-        Player X: {{ Xwin }} Win
-        <br />
-        Player O: {{ Owin }} Win
-        <br />
-        Draw: {{ draw }}
-        <br />
-        <br />
-        winrate X: {{ ((Xwin / (Xwin + Owin + draw)) * 100).toFixed(0) }}% <br />
-        winrate O: {{ ((Owin / (Xwin + Owin + draw)) * 100).toFixed(0) }}% <br />
-        drawrate: {{ ((draw / (Xwin + Owin + draw)) * 100).toFixed(0) }}%
-        <br />
-        <br />
-        <hr />
-        <button type="button" class="btn btn-primary" @click="restart_game()">Restart Game</button><br /><br />
+        <div class="flex">
+            <div class="text-vertically-center biru" style="width: 50%; height: 150px">
+                <div>
+                    <i class="fas fa-times fs-1 pb-2"></i>
+                    <br />
+                    {{ Xwin }} Win <br />
+                    Winrate {{ ((Xwin / (Xwin + Owin + draw)) * 100).toFixed(2) }}%
+                </div>
+            </div>
+            <div class="text-vertically-center merah" style="width: 50%; height: 150px">
+                <div>
+                    <i class="far fa-circle fs-1 pb-2"></i>
+                    <br />
+                    {{ Owin }} Win <br />
+                    Winrate {{ ((Owin / (Xwin + Owin + draw)) * 100).toFixed(2) }}%
+                </div>
+            </div>
+        </div>
+
+        <div class="text-vertically-center kuning flex-direction-column" style="width: 100%; height: 150px">
+            <div class="fs-1">&half;</div>
+            <br />
+            {{ draw }} Draw<br />
+            Drawrate {{ ((draw / (Xwin + Owin + draw)) * 100).toFixed(2) }}%
+        </div>
+
+        <div class="text-vertically-center" style="background-color: #fff; width: 100%; height: 75px">
+            ....
+        </div>
+
+        <div>
+            <br />
+            <button type="button" class="btn btn-primary me-3" @click="restart_game()">Restart Game <i class="fas fa-redo-alt"></i></button>
+            <button type="button" class="btn btn-danger" @click="reset_score()">Reset Score <i class="fas fa-redo-alt"></i></button>
+        </div>
     </div>
 </template>
 
@@ -40,6 +60,10 @@ export default {
         restart_game() {
             this.emitter.emit("restart_game", true);
         },
+        reset_score() {
+            this.emitter.emit("reset_score", true);
+        },
+        whoiswin() {},
     },
 
     created() {
@@ -51,4 +75,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.buat-radius {
+    border-radius: 8px;
+    box-shadow: 0px 0px 40px -32px rgb(85, 85, 85);
+}
+</style>

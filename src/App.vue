@@ -6,7 +6,7 @@ import Score from "./components/Score.vue";
 <template>
     <!-- <div class="vh wrn3 p-5"> -->
     <div class="mt-4 mb-4">
-        <h2 class="text-center bg-danger m-0">Tic-Tac-Toe by Victor</h2>
+        <h1 class="text-center m-0 fw-bold text-color-white">Tic Tac Toe</h1>
     </div>
 
     <div class="flex py-2 justify-content-space-evenly" style="height: auto">
