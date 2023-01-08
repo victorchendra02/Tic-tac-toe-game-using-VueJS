@@ -29,7 +29,7 @@
         </div>
 
         <div class="text-vertically-center" style="background-color: #fff; width: 100%; height: 75px">
-            <span v-if="winner === ''">....</span>
+            <span v-if="winner === ''"></span>
             <span v-if="winner === 'X'">X Win the game</span>
             <span v-if="winner === 'O'">O Win the game</span>
             <span v-if="winner === 'draw'">It's Draw!</span>

@@ -98,7 +98,7 @@ export default {
 
             setTimeout(function () {
                 alert("Score has been reset!");
-            }, 150);
+            }, 100);
         },
         checking() {
             // Rows check
