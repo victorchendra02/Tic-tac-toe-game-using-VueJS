@@ -29,7 +29,10 @@
         </div>
 
         <div class="text-vertically-center" style="background-color: #fff; width: 100%; height: 75px">
-            ....
+            <span v-if="winner === ''">....</span>
+            <span v-if="winner === 'X'">X Win the game</span>
+            <span v-if="winner === 'O'">O Win the game</span>
+            <span v-if="winner === 'draw'">It's Draw!</span>
         </div>
 
         <div>
@@ -48,6 +51,7 @@ export default {
             Xwin: parseInt(window.localStorage.getItem("Xwin")),
             Owin: parseInt(window.localStorage.getItem("Owin")),
             draw: parseInt(window.localStorage.getItem("draw")),
+            winner: "",
         };
     },
 
@@ -56,6 +60,7 @@ export default {
             this.Xwin = datanya.Xwin;
             this.Owin = datanya.Owin;
             this.draw = datanya.draw;
+            this.winner = datanya.winner;
         },
         restart_game() {
             this.emitter.emit("restart_game", true);

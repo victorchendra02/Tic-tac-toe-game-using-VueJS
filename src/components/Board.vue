@@ -57,6 +57,7 @@ export default {
                 if (this.move_count == 9 && this.is_end === false) {
                     this.is_end = true;
                     this.draw += 1;
+                    this.winner = "draw";
 
                     this.total_game = this.Xwin + this.Owin + this.draw;
                     window.localStorage.setItem("draw", this.draw);
@@ -71,6 +72,8 @@ export default {
             this.table = [null, null, null, null, null, null, null, null, null];
             this.move_count = 0;
             this.is_end = false;
+            this.winner = "";
+            this.to_ScoreBoard();
         },
         reset_score() {
             if (this.Xwin === 0 && this.Owin === 0 && this.draw === 0) {
@@ -102,6 +105,7 @@ export default {
             for (let i = 0; i < 7; i += 3) {
                 if (this.table[i] === "X" && this.table[i + 1] === "X" && this.table[i + 2] === "X") {
                     console.log("Player X win\n\n\n");
+                    this.winner = "X";
 
                     this.is_end = true;
                     this.Xwin += 1;
@@ -109,6 +113,7 @@ export default {
                     return;
                 } else if (this.table[i] === "O" && this.table[i + 1] === "O" && this.table[i + 2] === "O") {
                     console.log("Player O win\n\n\n");
+                    this.winner = "O";
 
                     this.is_end = true;
                     this.Owin += 1;
@@ -121,6 +126,7 @@ export default {
             for (let i = 0; i < 4; i++) {
                 if (this.table[i] === "X" && this.table[i + 3] === "X" && this.table[i + 6] === "X") {
                     console.log("Player X win\n\n\n");
+                    this.winner = "X";
 
                     this.is_end = true;
                     this.Xwin += 1;
@@ -128,6 +134,7 @@ export default {
                     return;
                 } else if (this.table[i] === "O" && this.table[i + 3] === "O" && this.table[i + 6] === "O") {
                     console.log("Player O win\n\n\n");
+                    this.winner = "O";
 
                     this.is_end = true;
                     this.Owin += 1;
@@ -140,6 +147,7 @@ export default {
             // y = x
             if (this.table[0] === "X" && this.table[4] === "X" && this.table[8] === "X") {
                 console.log("Player X win\n\n\n");
+                this.winner = "X";
 
                 this.is_end = true;
                 this.Xwin += 1;
@@ -148,6 +156,7 @@ export default {
             }
             if (this.table[0] === "O" && this.table[4] === "O" && this.table[8] === "O") {
                 console.log("Player O win\n\n\n");
+                this.winner = "O";
 
                 this.is_end = true;
                 this.Owin += 1;
@@ -158,6 +167,7 @@ export default {
             // y = -x
             if (this.table[2] === "X" && this.table[4] === "X" && this.table[6] === "X") {
                 console.log("Player X win\n\n\n");
+                this.winner = "X";
 
                 this.is_end = true;
                 this.Xwin += 1;
@@ -166,6 +176,7 @@ export default {
             }
             if (this.table[2] === "O" && this.table[4] === "O" && this.table[6] === "O") {
                 console.log("Player O win\n\n\n");
+                this.winner = "O";
 
                 this.is_end = true;
                 this.Owin += 1;
