@@ -4,7 +4,7 @@
 <template>
     <div class="flex flex-wrap box-shdw" style="width: 540px; height: 540px">
         <div v-for="(n, index) in table" :key="index">
-            <div class="square" v-if="table[index] === null && is_end === false" @click="clicked(index)"></div>
+            <div class="square" :class="aap" v-if="table[index] === null && is_end === false" @click="clicked(index)"></div>
             <div class="square-disabled" v-if="table[index] === null && is_end === true"></div>
 
             <div class="square-X biru" v-if="table[index] === 'X'"></div>
@@ -26,8 +26,15 @@ export default {
             draw: undefined,
             total_game: undefined,
             winner: "",
-            turn: "X",
+            Oturn: false,
         };
+    },
+    computed: {
+        aap() {
+            return {
+                O: this.Oturn === true, // apply CSS class "O" if (this.Oturn === true)
+            };
+        },
     },
 
     methods: {
@@ -35,8 +42,10 @@ export default {
             if (this.is_end === false) {
                 if (this.move_count % 2 === 0) {
                     this.table[index] = "X";
+                    this.Oturn = true;
                 } else {
                     this.table[index] = "O";
+                    this.Oturn = false;
                 }
                 this.move_count += 1;
 
@@ -60,7 +69,7 @@ export default {
                     this.winner = "draw";
 
                     this.total_game = this.Xwin + this.Owin + this.draw;
-                    window.localStorage.setItem("draw", this.draw);
+                    window.sessionStorage.setItem("draw", this.draw);
                 }
                 this.to_ScoreBoard();
             }
@@ -73,11 +82,15 @@ export default {
             this.move_count = 0;
             this.is_end = false;
             this.winner = "";
+            this.Oturn = false;
             this.to_ScoreBoard();
+            console.log("Game Restarted!");
         },
         reset_score() {
             if (this.Xwin === 0 && this.Owin === 0 && this.draw === 0) {
                 this.restart_game();
+
+                console.log("Score already resetted!");
                 setTimeout(function () {
                     alert("Nothing to reset. Score already resetted!");
                 }, 150);
@@ -85,9 +98,9 @@ export default {
                 return;
             }
 
-            window.localStorage.setItem("Xwin", 0);
-            window.localStorage.setItem("Owin", 0);
-            window.localStorage.setItem("draw", 0);
+            window.sessionStorage.setItem("Xwin", 0);
+            window.sessionStorage.setItem("Owin", 0);
+            window.sessionStorage.setItem("draw", 0);
 
             this.Xwin = 0;
             this.Owin = 0;
@@ -96,6 +109,7 @@ export default {
             this.emitter.emit("score", this.$data);
             this.restart_game();
 
+            console.log("Score Resetted!");
             setTimeout(function () {
                 alert("Score has been reset!");
             }, 100);
@@ -109,7 +123,7 @@ export default {
 
                     this.is_end = true;
                     this.Xwin += 1;
-                    window.localStorage.setItem("Xwin", this.Xwin);
+                    window.sessionStorage.setItem("Xwin", this.Xwin);
                     return;
                 } else if (this.table[i] === "O" && this.table[i + 1] === "O" && this.table[i + 2] === "O") {
                     console.log("Player O win\n\n\n");
@@ -117,7 +131,7 @@ export default {
 
                     this.is_end = true;
                     this.Owin += 1;
-                    window.localStorage.setItem("Owin", this.Owin);
+                    window.sessionStorage.setItem("Owin", this.Owin);
                     return;
                 }
             }
@@ -130,7 +144,7 @@ export default {
 
                     this.is_end = true;
                     this.Xwin += 1;
-                    window.localStorage.setItem("Xwin", this.Xwin);
+                    window.sessionStorage.setItem("Xwin", this.Xwin);
                     return;
                 } else if (this.table[i] === "O" && this.table[i + 3] === "O" && this.table[i + 6] === "O") {
                     console.log("Player O win\n\n\n");
@@ -138,7 +152,7 @@ export default {
 
                     this.is_end = true;
                     this.Owin += 1;
-                    window.localStorage.setItem("Owin", this.Owin);
+                    window.sessionStorage.setItem("Owin", this.Owin);
                     return;
                 }
             }
@@ -151,7 +165,7 @@ export default {
 
                 this.is_end = true;
                 this.Xwin += 1;
-                window.localStorage.setItem("Xwin", this.Xwin + 1);
+                window.sessionStorage.setItem("Xwin", this.Xwin + 1);
                 return;
             }
             if (this.table[0] === "O" && this.table[4] === "O" && this.table[8] === "O") {
@@ -160,7 +174,7 @@ export default {
 
                 this.is_end = true;
                 this.Owin += 1;
-                window.localStorage.setItem("Owin", this.Owin);
+                window.sessionStorage.setItem("Owin", this.Owin);
                 return;
             }
 
@@ -171,7 +185,7 @@ export default {
 
                 this.is_end = true;
                 this.Xwin += 1;
-                window.localStorage.setItem("Xwin", this.Xwin + 1);
+                window.sessionStorage.setItem("Xwin", this.Xwin + 1);
                 return;
             }
             if (this.table[2] === "O" && this.table[4] === "O" && this.table[6] === "O") {
@@ -180,28 +194,25 @@ export default {
 
                 this.is_end = true;
                 this.Owin += 1;
-                window.localStorage.setItem("Owin", this.Owin);
+                window.sessionStorage.setItem("Owin", this.Owin);
                 return;
             }
         },
     },
 
     created() {
-        let Xwin_ = parseInt(window.localStorage.getItem("Xwin"));
-        let Owin_ = parseInt(window.localStorage.getItem("Owin"));
-        let draw_ = parseInt(window.localStorage.getItem("draw"));
-
-        // console.log(Xwin_);
-        // console.log(Owin_);
+        let Xwin_ = parseInt(window.sessionStorage.getItem("Xwin"));
+        let Owin_ = parseInt(window.sessionStorage.getItem("Owin"));
+        let draw_ = parseInt(window.sessionStorage.getItem("draw"));
 
         if (isNaN(Xwin_) || isNaN(Owin_) || isNaN(draw_)) {
             this.Xwin = 0;
             this.Owin = 0;
             this.draw = 0;
 
-            window.localStorage.setItem("Xwin", this.Xwin);
-            window.localStorage.setItem("Owin", this.Owin);
-            window.localStorage.setItem("draw", this.draw);
+            window.sessionStorage.setItem("Xwin", this.Xwin);
+            window.sessionStorage.setItem("Owin", this.Owin);
+            window.sessionStorage.setItem("draw", this.draw);
 
             this.total_game = 0;
         } else {
@@ -239,7 +250,10 @@ export default {
     background-color: #212121;
 }
 .square:hover {
-    background-color: #e1e1e1;
+    background-color: #008ddb;
+}
+.O:hover {
+    background-color: #e4005a;
 }
 
 .square-disabled {

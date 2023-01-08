@@ -48,9 +48,9 @@ export default {
     name: "Score",
     data() {
         return {
-            Xwin: parseInt(window.localStorage.getItem("Xwin")),
-            Owin: parseInt(window.localStorage.getItem("Owin")),
-            draw: parseInt(window.localStorage.getItem("draw")),
+            Xwin: parseInt(window.sessionStorage.getItem("Xwin")),
+            Owin: parseInt(window.sessionStorage.getItem("Owin")),
+            draw: parseInt(window.sessionStorage.getItem("draw")),
             winner: "",
         };
     },
