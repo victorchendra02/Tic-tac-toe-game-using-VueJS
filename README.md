@@ -1,12 +1,13 @@
 ## How to run the project
 
-First, install npm by executing this in your terminal
+First, install npm & emitter by executing this in your terminal
 
 ```sh
 npm install
+npm install --save mitt
 ```
 
-Then, execute this in your terminal
+Then, execute this in your terminal to run
 
 ```sh
 npm run dev
