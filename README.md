@@ -1,29 +1,15 @@
-# TikTakToe_Project
+## How to run the project
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+First, install npm by executing this in your terminal
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Then, execute this in your terminal
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+Finally, open the web from the given link, it will looks like this: http://localhost:5173/
